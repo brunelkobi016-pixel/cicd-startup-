@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>StartupCI — Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f0f1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 30px 40px;
+            border-bottom: 2px solid #00d4aa;
+        }
+        header h1 {
+            font-size: 2rem;
+            color: #00d4aa;
+        }
+        header p {
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            padding: 30px 40px;
+        }
+        .stat-card {
+            background: #1a1a2e;
+            border: 1px solid #00d4aa33;
+            border-radius: 10px;
+            padding: 20px 30px;
+            text-align: center;
+            flex: 1;
+        }
+        .stat-card h2 {
+            font-size: 2rem;
+            color: #00d4aa;
+        }
+        .stat-card p {
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .section {
+            padding: 0 40px 40px;
+        }
+        .section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #00d4aa;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1a1a2e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th {
+            background: #00d4aa;
+            color: #0f0f1a;
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ffffff11;
+        }
+        tr:hover { background: #ffffff08; }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .fintech { background: #00d4aa22; color: #00d4aa; }
+        .agritech { background: #ffd70022; color: #ffd700; }
+        .healthtech { background: #ff6b6b22; color: #ff6b6b; }
+        .status-ok {
+            display: inline-block;
+            width: 10px; height: 10px;
+            background: #00d4aa;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #444;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 StartupCI Dashboard</h1>
+        <p>Pipeline CI/CD léger pour startups africaines — ESMT Dakar</p>
+    </header>
+
+    <div class="stats">
+        <div class="stat-card">
+            <h2>{{ startups|length }}</h2>
+            <p>Startups enregistrées</p>
+        </div>
+        <div class="stat-card">
+            <h2>4</h2>
+            <p>Services Docker actifs</p>
+        </div>
+        <div class="stat-card">
+            <h2><span class="status-ok"></span>OK</h2>
+            <p>Statut du pipeline</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>📋 Liste des Startups</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Secteur</th>
+                    <th>Ville</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in startups %}
+                <tr>
+                    <td>{{ s.id }}</td>
+                    <td>{{ s.nom }}</td>
+                    <td>
+                        <span class="badge {{ s.secteur|lower|replace('tech','tech') }}">
+                            {{ s.secteur }}
+                        </span>
+                    </td>
+                    <td>{{ s.ville }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        Projet Bases de Données Distribuées — ESMT 2026
+    </footer>
+</body>
+</html>

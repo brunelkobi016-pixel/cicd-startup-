@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -52,6 +52,11 @@ def get_startups():
         "secteur": s.secteur,
         "ville": s.ville
     } for s in startups])
+
+@app.route('/dashboard')
+def dashboard():
+    startups = Startup.query.all()
+    return render_template('index.html', startups=startups)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
